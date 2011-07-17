@@ -1,6 +1,6 @@
 class ChangePostPhoneDataType < ActiveRecord::Migration
   def self.up
-    change_column :posts, :phone, :bigint
+    change_column :posts, :phone, :string
   end
 
   def self.down

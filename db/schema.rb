@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(:version => 20110717144357) do
     t.datetime "posted_at"
     t.string   "location"
     t.integer  "age"
-    t.integer  "phone",      :limit => 8
+    t.string   "phone"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "report_url"
