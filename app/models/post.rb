@@ -20,6 +20,7 @@ class Post < ActiveRecord::Base
       doc.css('link').each { |node| node.remove }
 
       self.title = doc.css("#postingTitle h1").text
+      self.report_url = doc.css("#postingTitle h1 a").first.attributes['href'].value
       self.body = doc.css(".postingBody").text
 
       self.posted_at = Post.parse_date(doc.css(".adInfo").text) # TODO need to regex out the date from posted:
@@ -27,7 +28,6 @@ class Post < ActiveRecord::Base
         logger.error "No date found for #{url}"
       end
 
-      #will serialize whole .posting
       posting = doc.css(".posting").text
       self.location = Post.parse_location(posting)
       if self.location.blank?
@@ -41,7 +41,7 @@ class Post < ActiveRecord::Base
 
       self.phone = Post.parse_phone("#{self.title} #{self.body}")
       if self.phone.nil? || self.phone == 0
-        logger.warning "No phone found for #{url}"
+        logger.warn "No phone found for #{url}"
       end
 
       self.save
@@ -53,7 +53,6 @@ class Post < ActiveRecord::Base
     text.downcase!
     text.gsub!(/[^a-z0-9]/, "")
     text.gsub!(/\n/, " ")
-    puts text
     phone = try_parse(text)
     if phone.nil?
       text.gsub!(/o/,"0")

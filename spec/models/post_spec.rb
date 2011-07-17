@@ -22,6 +22,7 @@ describe Post do
       post.title.should  match /Great choice of RUSSIAN dolls/
       post.body.should   match /Dear Gentlemen/
       post.url.should       == "http://newyork.backpage.com/FemaleEscorts/great-choice-of-russian-dolls-22/22504536"
+      post.report_url.should == "http://posting.newyork.backpage.com/online/classifieds/ReportAd?oid=22504536"
     end
   end
 
@@ -35,7 +36,6 @@ describe Post do
 
     it "should fail" do
       SHOULD_FAIL.each do |phone_string|
-        puts phone_string
         Post.parse_phone(phone_string).should be nil
       end
     end
