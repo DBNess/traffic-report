@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110717020932) do
+ActiveRecord::Schema.define(:version => 20110717144357) do
 
   create_table "posts", :force => true do |t|
     t.string   "url"
@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(:version => 20110717020932) do
     t.datetime "posted_at"
     t.string   "location"
     t.integer  "age"
-    t.integer  "phone"
+    t.integer  "phone",      :limit => 8
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "report_url"
