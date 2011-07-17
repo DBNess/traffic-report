@@ -20,6 +20,7 @@ describe Post do
       post.location.should  == "Midwood"
       post.title.should  match /Great choice of RUSSIAN dolls/
       post.body.should   match /Dear Gentlemen/
+      post.url.should       == "http://newyork.backpage.com/FemaleEscorts/great-choice-of-russian-dolls-22/22504536"
     end
   end
 

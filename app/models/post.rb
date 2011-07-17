@@ -5,7 +5,7 @@ class Post < ActiveRecord::Base
   after_initialize :setup_default_data
 
   def setup_default_data
-    url = "http://newyork.backpage.com/#{category}/#{slug}/#{post_id}"
+    self.url = "http://newyork.backpage.com/#{category}/#{slug}/#{post_id}"
     @file_path = "../trafficking/backpage/newyork.backpage.com/#{category}/#{slug}/#{post_id}"
   end
 
