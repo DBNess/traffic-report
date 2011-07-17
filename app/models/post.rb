@@ -20,7 +20,8 @@ class Post < ActiveRecord::Base
       doc.css('link').each { |node| node.remove }
 
       self.title = doc.css("#postingTitle h1").text
-      self.report_url = doc.css("#postingTitle h1 a").first.attributes['href'].value
+      report_nodes = doc.css("#postingTitle h1 a")
+      self.report_url = report_nodes.first.attributes['href'].value if report_nodes.count > 0
       self.body = doc.css(".postingBody").text
 
       self.posted_at = Post.parse_date(doc.css(".adInfo").text) # TODO need to regex out the date from posted:
