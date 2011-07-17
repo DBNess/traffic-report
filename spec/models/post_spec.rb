@@ -5,42 +5,22 @@ describe Post do
   describe "#parse_file!" do
 
     it "should parse" do
-      post = Post.new
-      post.parse_file!(
-        "../trafficking/backpage/newyork.backpage.com/FemaleEscorts/great-choice-of-russian-dolls-22/22504536")
+      post = Post.new(
+              :slug => "great-choice-of-russian-dolls-22",
+              :category => "FemaleEscorts",
+              :post_id => 22504536
+      )
+      post.parse_file!
 
-      puts post.url
-      puts post.post_id
-      puts post.slug
-      puts post.title
-      puts post.body
-      puts post.posted_at
-      puts post.location
-      puts post.age
-
-      post.url.should       == "http://newyork.backpage.com/FemaleEscorts/great-choice-of-russian-dolls-22/22504536"
-      post.post_id.should   == "22504536"
-      post.slug.should      == "FemaleEscorts"
-      post.posted_at.should == Time.zone.local(2011, 7, 15, 1, 36, 00)
+      post.post_id.should   == 22504536
+      post.category.should  == "FemaleEscorts"
+      post.slug.should      == "great-choice-of-russian-dolls-22"
+      post.posted_at.utc.should == Time.utc(2011, 7, 15, 13, 36, 00).utc
       post.age.should       == 22
+      post.location.should  == "Midwood"
       post.title.should  match /Great choice of RUSSIAN dolls/
       post.body.should   match /Dear Gentlemen/
     end
-  end
-
-  describe "#parse_date" do
-    it "should parse" do
-      #Post.parse_date("posted: July 16, 2011, 10:01 PM").
-      #        should == Time.zone.local(2011, 7, 16, 22, 1, 00)
-    end
-  end
-
-  describe "#parse_location" do
-
-  end
-
-  describe "#parse_age" do
-
   end
 
   describe "#parse_phone" do
