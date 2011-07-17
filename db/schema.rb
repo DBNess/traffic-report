@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110716231033) do
+ActiveRecord::Schema.define(:version => 20110717020932) do
 
   create_table "posts", :force => true do |t|
     t.string   "url"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(:version => 20110716231033) do
     t.integer  "phone"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "report_url"
   end
 
 end
