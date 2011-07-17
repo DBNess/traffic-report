@@ -1,3 +1,8 @@
+.idea
+.rspec
+.rvmrc*
+*.swp
+*.iml
 .bundle
 db/*.sqlite3
 log/*.log

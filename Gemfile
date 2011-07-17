@@ -1,6 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.0.8'
+gem 'nokogiri'
 
 group :test, :development do
   gem "rspec-rails", "~> 2.6"

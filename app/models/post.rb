@@ -1,4 +1,4 @@
-include 'nokogiri'
+require 'nokogiri'
 
 class Post < ActiveRecord::Base
 
@@ -9,6 +9,9 @@ class Post < ActiveRecord::Base
   #   post_id
   #   slug
   def parse_file!(file_path)
+    self.slug = ""
+    self.post_id = ""
+    
     File.open(file_path) do |f|
       doc = Nokogiri::HTML(f)
       doc.css('script').each { |node| node.remove }
