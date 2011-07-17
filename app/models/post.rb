@@ -39,22 +39,23 @@ class Post < ActiveRecord::Base
     end
   end
 
-  # TODO get the url somehow
+  # TODO parse and save phone
+  def self.parse_phone(text)
+    text.downcase!
+    text.gsub!(/[^a-z0-9]/, "")
+    text.gsub!(/\n/, " ")
+    puts text
+    phone = try_parse(text)
+    if phone.nil?
+      text.gsub!(/o/,"0")
+      phone = try_parse(text)
+    end
+    return phone
+  end
 
-  # TODO parse and save phone and what else?
-  def parse_phone
-    # read from body and title
-
-    #  phone =  # TODO chop out everything but the numbers
-    # take out all non-number, non-alpha characters
-    # leave endlines
-    # try with and without O => 0 conversion
-    # alert if no phone number found
-    #
-    # [[num][up to 3 non digit characters]](can repeat as far as the numbers go)
-    # at least nine numbers
-    # if not, convert o => 0
-    #   try again
+  def self.try_parse(text)
+    m = /(\d{10,13})/.match(text)
+    m[1] if m
   end
 
   def self.parse_date(date_string)
