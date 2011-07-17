@@ -20,12 +20,12 @@ class Post < ActiveRecord::Base
       self.title = doc.css("#postingTitle h1").text
       self.body = doc.css(".postingBody").text
 
-      self.posted_at = parse_date(doc.css(".adInfo").text) # TODO need to regex out the date from posted:
+      self.posted_at = Post.parse_date(doc.css(".adInfo").text) # TODO need to regex out the date from posted:
 
       #will serialize whole .posting
       posting = doc.css(".posting").text
-      self.location = parse_location(posting)
-      self.age = parse_age(posting)
+      self.location = Post.parse_location(posting)
+      self.age = Post.parse_age(posting)
 
       self.save
     end
