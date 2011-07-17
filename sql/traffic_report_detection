@@ -1,0 +1,38 @@
+﻿--Phone numbers in more than one category
+SELECT pc.num_categories
+, p.phone
+, p.category 
+, COUNT(*) as posts
+FROM (
+	SELECT p.phone
+	, COUNT(DISTINCT p.category) as num_categories
+	FROM posts p
+	WHERE p.phone IS NOT NULL
+	GROUP BY p.phone
+) pc
+JOIN posts p ON pc.phone = p.phone
+WHERE pc.num_categories > 1
+GROUP BY pc.num_categories, p.phone, p.category
+ORDER BY pc.num_categories desc, p.phone, p.category
+
+--Phone numbers in both clean and adult categories
+SELECT pc.num_categories
+, p.phone
+, p.category 
+, p.*
+--, COUNT(*) as posts
+FROM (
+	SELECT p.phone
+	, COUNT(DISTINCT p.category) as num_categories
+	FROM posts p
+	WHERE p.phone IS NOT NULL
+	GROUP BY p.phone
+) pc
+JOIN posts p ON pc.phone = p.phone
+WHERE pc.num_categories > 1
+AND EXISTS --adult category post
+	(SELECT 1 FROM posts bp WHERE bp.category in ('AdultJobs','Domination','FemaleEscorts','Strippers','MaleEscorts','TranssexualEscorts') AND bp.phone = p.phone) --,'BodyRubs'
+AND EXISTS --clean category post
+	(SELECT 1 FROM posts gp WHERE gp.category in ('LaborMoving', 'CleaningServices','MiscServices','LawnServices','Childcare','HealthServices') AND gp.phone = p.phone) --,'TherapeuticMassage'
+--GROUP BY pc.num_categories, p.phone--, p.category
+ORDER BY pc.num_categories desc, p.phone--, p.category
