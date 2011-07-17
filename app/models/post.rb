@@ -30,9 +30,18 @@ class Post < ActiveRecord::Base
       #will serialize whole .posting
       posting = doc.css(".posting").text
       self.location = Post.parse_location(posting)
+      if self.location.blank?
+        logger.error "No location found for #{url}"
+      end
+
       self.age = Post.parse_age(posting)
       if self.age.nil? || self.age == 0
         logger.error "No age found for #{url}"
+      end
+
+      self.phone = Post.parse_phone("#{self.title} #{self.body}")
+      if self.phone.nil? || self.phone == 0
+        logger.warning "No phone found for #{url}"
       end
 
       self.save
